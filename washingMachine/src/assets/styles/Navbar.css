@@ -1,0 +1,16 @@
+.navbar-custom{
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+    padding: 0.5rem 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    font-family: 'Mulish', sans-serif;
+}
+
+.navbar-logo img{
+    width: 64px;
+    height: 64px;
+}

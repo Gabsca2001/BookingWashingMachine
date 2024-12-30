@@ -1,0 +1,104 @@
+/* BuildingPage.module.scss */
+
+/* Main container for the building page */
+.buildingPageContainer {
+  padding: 20px;
+  font-family: 'Mulish', sans-serif;
+}
+
+/* Header for building name and subtitle */
+.buildingHeader {
+  text-align: center;
+  margin-bottom: 30px;
+  background: linear-gradient(90deg, #f8f8f8 0%, #f9f7f7 100%);
+  padding: 5px;
+  border-radius: 1rem;
+}
+
+.buildingTitle {
+  font-size: 1.5rem;
+  color: #0f2234;
+}
+
+/* General section styles */
+.machinesSection {
+  margin-bottom: 40px;
+}
+
+.sectionTitle {
+  font-size: 1.8rem;
+  color: #17454a;
+  margin-bottom: 40px;
+
+  &::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 1px;
+    background-color: #17454a;
+    margin-bottom: 10px;
+  }
+}
+
+/* List of washing or dryer machines */
+.machineList {
+  list-style-type: none;
+  padding: 0;
+  text-align: center;
+}
+
+.machineLink {
+  width: 100%;
+  text-decoration: none;
+  color: #333;
+}
+
+.machineItem {
+  width: 300px;
+  display: inline-block;
+  background: linear-gradient(180deg, #ffffff 0%, #f3f3f3 100%);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+  &:hover {
+    background-color: #17454a;
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
+  }
+
+  .machineItemButton{
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 10px;
+    border-bottom-right-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    background: linear-gradient(90deg, #358088 0%, #091d20 100%);
+    transition: all 0.3s ease;
+  }
+
+  &:hover .machineItemButton {
+    background: linear-gradient(90deg, #091d20 0%, #358088 100%);
+  }
+}
+
+.machineIcon {
+  width: 32px;
+  height: 32px;
+  margin-right: 20px;
+}
+
+.machineName {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+/* "Building not found" message */
+.notFound {
+  text-align: center;
+  font-size: 1.5rem;
+  color: red;
+  font-weight: bold;
+}

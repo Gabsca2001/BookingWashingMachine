@@ -1,0 +1,176 @@
+.btnDay{
+    background-color: #9e3965;
+    color: #fff;
+    border: none;
+    margin: 0 5px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: 'Mulish', sans-serif;
+
+    &:hover {
+        background-color: #4f0e42;
+    }
+}
+
+.slot-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-family: 'Mulish', sans-serif;
+}
+
+.header {
+    font-family: 'Mulish', sans-serif;
+    text-align: center;
+    margin-bottom: 30px;
+    background-image: url('/assets/images/cool-background-1.png');
+    background-size: cover;
+    background-position: center;
+    border-bottom-right-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+    margin: 0;
+    padding: 20px;
+    color: #fff;
+    transition: all 0.3s;
+
+    .buttonHeader {
+        background: linear-gradient(90deg, #a21565 0%, #57357c 100%);
+        border: none;
+        margin-top: 10px;
+        color: #fff !important;
+        padding: 10px 20px;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 1.1rem;
+
+        &:hover {
+            background: linear-gradient(90deg, #091d20 0%, #358088 100%);
+        }
+    }
+}
+
+.headerActive{
+    border-bottom-left-radius: 1.5rem;
+    border-bottom-right-radius: 1.5rem;
+}
+
+.slot {
+    font-family: 'Mulish', sans-serif;
+    background-color: #fff;
+    padding: 15px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 0.1rem 0rem;
+    transition: background-color 0.3s;
+    user-select: none;
+    position: relative;
+
+    &.booked {
+        background-color: #eb6969;
+        color: #fff;
+    }
+
+    &.selected {
+        background-color: #44eb63;
+        color: #fff;
+    }
+
+    // Disable hover effect when the slot is selected
+    &:not(.selected):hover {
+        background-color: #f0f0f0; // Change hover color to a lighter shade
+        color: #000;
+    }
+
+    .bookedLabel {
+        font-size: 12px;
+        color: #f6f6f6;
+        margin-left: 10px;
+    }
+
+    .roomNumber {
+        background-color: #f6f6f6;
+        color: #000;
+        border-radius: 5px;
+        padding: 3px;
+    }
+
+    .bookedInfo {
+        position: absolute;
+        right: 10px;
+        display: inline-flex;
+        align-items: center;
+        font-size: 12px;
+        gap: 5px;
+    }
+
+    .deleteButton {
+        font-size: 15px;
+        padding: 2px 7px;
+        border: none;
+        background-color: #1e0505;
+        color: #fff;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+}
+
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    font-family: 'Mulish', sans-serif;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalContent {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    width: 300px;
+}
+
+input.form-control {
+    margin-bottom: 10px;
+}
+
+.selectedSlotModal {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+
+}
+
+.buttonConfirmModal{
+    background: linear-gradient(90deg, #a21565 0%, #57357c 100%);
+    border: none;
+    margin-top: 10px;
+    color: #fff !important;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 1.1rem;
+
+    &:hover {
+        background: linear-gradient(90deg, #091d20 0%, #358088 100%);
+    }
+}

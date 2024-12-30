@@ -1,0 +1,49 @@
+.hero{
+    background-image: url('/assets/images/cool-background.png');
+    background-size: cover;
+    background-position: center;
+    height: 40vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    font-size: 2rem;
+    background-color: rgba(40, 41, 106, 0.5);
+    border-bottom-right-radius: 5%;
+    border-bottom-left-radius: 5%;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+    font-family: 'Mulish', sans-serif;
+}
+
+.back-button{
+    background-color: #17454a !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 5px !important;
+    padding: 10px 10px !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px !important;
+    cursor: pointer;
+    font-family: 'Mulish', sans-serif;
+}
+
+.back-button:hover{
+    background-color: #05060e !important;
+}
+
+.btnSelectLanguage{
+    background: linear-gradient(90deg, #a21565 0%, #57357c 100%);
+    color: white !important;
+    border: none !important;
+    border-radius: 5px !important;
+    padding: 10px 25px !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px !important;
+    cursor: pointer;
+    font-family: 'Mulish', sans-serif;
+}
