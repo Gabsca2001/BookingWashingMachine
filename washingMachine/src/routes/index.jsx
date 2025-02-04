@@ -4,6 +4,7 @@ import HomePage from "../views/HomePage";
 import { createBrowserRouter } from "react-router-dom";
 import BuildingPage from "../views/BuildingPage";
 import MachinePage from "../views/MachinePage";
+import ComeFunziona from "../views/ComeFunziona";
 
 const router = createBrowserRouter(
     [
@@ -20,6 +21,10 @@ const router = createBrowserRouter(
                         {
                             path: "/home",
                             element: <HomePage />
+                        },
+                        {
+                            path: "come-funziona",
+                            element: <ComeFunziona />
                         },
                         {
                             path: "/building/:id",

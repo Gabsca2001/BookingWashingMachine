@@ -27,7 +27,7 @@ const NavbarHome = () => {
                         <Nav.Link as={Link} to="/" className="navbar-link">
                             Home
                         </Nav.Link>
-                        <Nav.Link as={Link} to="/about" className="navbar-link">
+                        <Nav.Link as={Link} to="/come-funziona" className="navbar-link">
                             {language === "it" ? "Come funziona?" : "How it works?"}
                         </Nav.Link>
                         <NavDropdown

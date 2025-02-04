@@ -8,7 +8,8 @@ import { LanguageContext } from '../context/index.jsx';
 import { RiArrowLeftWideFill } from "react-icons/ri";
 import { RiArrowRightWideLine } from "react-icons/ri";
 import { CiTrash } from "react-icons/ci";
-import { addReservation, getReservationsForMachine, removeReservation } from '../firebase-services/laundry-reservation.mjs';
+import { addReservation, getReservationsForMachine, removeReservation, addLogInfo } from '../firebase-services/laundry-reservation.mjs';
+import platform from "platform";
 
 const MachinePage = () => {
     const { language } = useContext(LanguageContext);
@@ -94,27 +95,27 @@ const MachinePage = () => {
     const isSlotPast = (slot) => {
         const currentDateTime = new Date(); // Current date and time
         const selectedDateStart = new Date(selectedDate); // Start of the selected day
-    
+
         // Normalize currentDateTime and selectedDateStart to midnight for day comparison
         selectedDateStart.setHours(0, 0, 0, 0);
         const currentDateStart = new Date(currentDateTime);
         currentDateStart.setHours(0, 0, 0, 0);
-    
+
         // If the slot's day is before the current day, it's in the past
         if (selectedDateStart < currentDateStart) {
             return true;
         }
-    
+
         // Parse the date and time of the slot
         const slotDateTime = new Date(day.date); // Use the day's date for the slot
         const [endHour, endMinute] = slot.time.split(' - ')[1].split(':').map(Number); // Slot's end time
         slotDateTime.setHours(endHour, endMinute, 0, 0); // Set the exact time for the slot
-    
+
         // If the day matches but the time is before the current time, it's in the past
         return selectedDateStart.getTime() === currentDateStart.getTime() && currentDateTime > slotDateTime;
     };
-    
-    
+
+
 
 
     const [selectedSlots, setSelectedSlots] = useState([]);
@@ -246,6 +247,41 @@ const MachinePage = () => {
 
         try {
             // Pass the reservation ID (e.g., the document ID) and slot index to the function
+
+            let publicIP = "Unknown";
+            let localIP = await getLocalIP();
+
+            try {
+                const response = await fetch("https://api64.ipify.org?format=json");
+                const data = await response.json();
+                publicIP = data.ip;
+            } catch (error) {
+                console.error();
+            }
+
+            const userAgent = navigator.userAgent;
+            const screenSize = `${window.screen.width}x${window.screen.height}`;
+            const deviceInfo = platform.parse(userAgent);
+            const os = deviceInfo.os ? `${deviceInfo.os.family} ${deviceInfo.os.version}` : "Unknown OS";
+            const browser = deviceInfo.name ? `${deviceInfo.name} ${deviceInfo.version}` : "Unknown Browser";
+            const isMobile = /Mobi|Android/i.test(userAgent); // Detect if mobile
+
+            const logData = {
+                reservationId,
+                publicIP,
+                localIP,
+                userAgent,
+                screenSize,
+                os,
+                browser,
+                isMobile,
+                action: 'delete reservation',
+                timestamp: new Date().toISOString(),
+                roomNumber,
+            };
+                
+            const logRef = await addLogInfo(logData);
+
             const isDeleteSuccessful = await removeReservation({
                 reservationId: reservationId, // Replace with the actual reservation document ID
                 slotIndex,
@@ -268,7 +304,29 @@ const MachinePage = () => {
         }
     };
 
+    const getLocalIP = async () => {
+        return new Promise((resolve) => {
+            const rtc = new RTCPeerConnection({ iceServers: [] });
 
+            rtc.createDataChannel("");
+            rtc.createOffer()
+                .then((offer) => rtc.setLocalDescription(offer))
+                .catch(() => { });
+
+            rtc.onicecandidate = (event) => {
+                if (event && event.candidate) {
+                    const ipMatch = event.candidate.candidate.match(
+                        /([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})/
+                    );
+                    if (ipMatch) {
+                        resolve(ipMatch[1]); // Extract IPv4 Address
+                    }
+                }
+            };
+
+            setTimeout(() => resolve("Private Network"), 3000); // Fallback if blocked
+        });
+    };
 
     const handleModalConfirm = async () => {
         const roomRegex = /^[ABC][0-9]{3}[a-zA-Z]?$/i;
@@ -287,6 +345,24 @@ const MachinePage = () => {
             }),
             date: formatDateToLocal(selectedDate),
         };
+
+        let publicIP = "Unknown";
+        let localIP = await getLocalIP();
+
+        try {
+            const response = await fetch("https://api64.ipify.org?format=json");
+            const data = await response.json();
+            publicIP = data.ip;
+        } catch (error) {
+            console.error();
+        }
+
+        const userAgent = navigator.userAgent;
+        const screenSize = `${window.screen.width}x${window.screen.height}`;
+        const deviceInfo = platform.parse(userAgent);
+        const os = deviceInfo.os ? `${deviceInfo.os.family} ${deviceInfo.os.version}` : "Unknown OS";
+        const browser = deviceInfo.name ? `${deviceInfo.name} ${deviceInfo.version}` : "Unknown Browser";
+        const isMobile = /Mobi|Android/i.test(userAgent); // Detect if mobile
 
         try {
             const docRef = await addReservation(reservationData);
@@ -309,7 +385,21 @@ const MachinePage = () => {
                 setRoomNumber('');
                 setIsModalOpen(false);
 
+                const logData = {
+                    reservationId: docRef.id,
+                    publicIP,
+                    localIP,
+                    userAgent,
+                    screenSize,
+                    os,
+                    browser,
+                    isMobile,
+                    action: 'reservation',
+                    timestamp: new Date().toISOString(),
+                    roomNumber,
+                };
 
+                const logRef = await addLogInfo(logData);
 
             } else {
                 alert(language === 'en' ? 'Error adding reservation' : 'Errore durante la prenotazione');

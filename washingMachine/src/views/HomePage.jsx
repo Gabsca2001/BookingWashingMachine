@@ -16,7 +16,7 @@ const Home = () => {
         <>
             <HeroComponent />
 
-            <div className='d-flex justify-content-center mt-4 mb-3'>
+            <div className='container d-flex justify-content-center mt-4 mb-3 align-items-center'>
                 <Dropdown>
                     <Dropdown.Toggle id="dropdown-basic" className='btnSelectLanguage'>
                         {language === 'it' ? 'Select language' : 'Seleziona la tua lingua'}
@@ -35,6 +35,10 @@ const Home = () => {
                         </Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
+
+                <a href="/come-funziona" className="btn btn-danger mx-3 px-4 py-2">
+                    {language === 'it' ? 'Come funziona?' : 'How does it work?'}
+                </a>
             </div>
 
             <ListBuilding />

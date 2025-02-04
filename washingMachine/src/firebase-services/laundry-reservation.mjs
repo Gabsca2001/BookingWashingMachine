@@ -28,6 +28,17 @@ const addReservation = async (reservationData) => {
     }
 };
 
+const addLogInfo = async (logData) => {
+    try {
+        const docRef = await addDoc(collection(db, "logs"), logData);
+        return docRef;
+    } catch (error) {
+        console.error("Error adding log: ", error);
+        return false;
+    }
+};
+
+
 const removeReservation = async ({ reservationId, slotIndex }) => {
     try {
         // Display cached reservations for debugging
@@ -115,4 +126,4 @@ const getReservationsForMachine = async (machineId, date) => {
 };
 
 
-export { addReservation, getReservationsForMachine, removeReservation };
+export { addReservation, getReservationsForMachine, removeReservation, addLogInfo };
